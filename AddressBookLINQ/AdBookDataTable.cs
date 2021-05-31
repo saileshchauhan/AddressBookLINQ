@@ -30,5 +30,22 @@ namespace AddressBookLINQ
             adressBookTable.Rows.Add("Sam", "Bush", "Street 12", "Bhopal", "Madhya Pradesh", "460551", 98989898, "sam@gmail.com");
             adressBookTable.Rows.Add("Sam", "Bush", "Street 12", "Bhopal", "Madhya Pradesh", "460551", 98989898, "sam@gmail.com");
         }
+        public void EditContact()
+        {
+            var rowsToUpdate = from record in adressBookTable.AsEnumerable().Where(row => row.Field<string>("FirstName") == "Sam")
+                               select record;
+            foreach(var rows in rowsToUpdate)
+            {
+                rows.SetField("City","Indore");
+            }
+            foreach(DataRow row in adressBookTable.Rows)
+            {
+                string firstName = row.Field<string>("FirstName");
+                string lastName = row.Field<string>("LastName");
+                string adress = row.Field<string>("Address");
+                string city = row.Field<string>("City");
+                Console.WriteLine("First Name {0} LastName {1} Adress {2} City {3} ",firstName,lastName,adress,city);
+            }
+        }
     }
 }
